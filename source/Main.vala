@@ -1,9 +1,9 @@
 int main (string[] args) {
-    var app = new OpenGLTransitionApp();
+    var app = new Gtk4Demo.OpenGLTransitionApp();
     return app.run (args);
 }
 
-public class OpenGLTransitionApp : Gtk.Application {
+public class Gtk4Demo.OpenGLTransitionApp : Gtk.Application {
     public OpenGLTransitionApp () {
         Object (application_id: "github.aeldemery.gtk4_opengl_transition",
                 flags: GLib.ApplicationFlags.FLAGS_NONE
