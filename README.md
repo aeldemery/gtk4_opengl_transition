@@ -15,8 +15,8 @@ Initial Attempt to implement Gtk4 OpenGL Transition demo in Vala.
 The latest git sources was used to compile this demo.
 
 ```
-vala 0.50
-gtk 3.99.1
+vala 0.50.1
+gtk 3.99.2
 ```
 
 ## Screenshot <a name = "screenshot"></a>
