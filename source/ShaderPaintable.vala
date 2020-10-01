@@ -35,10 +35,10 @@ public class Gtk4Demo.ShaderPaintable : Object, Gdk.Paintable {
             return _args;
         }
         set {
-            if (value.get_size () != this.shader.get_args_size ()) {
+            _args = value;
+            if (_args.get_size () != this.shader.get_args_size ()) {
                 critical ("Arguments size must be the same size of Shader args.\n");
             }
-            _args = value;
             this.invalidate_contents ();
         }
     }
