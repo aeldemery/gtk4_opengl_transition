@@ -9,5 +9,6 @@
     <gresource prefix = "/github/aeldemery/gtk4_opengl_transition">
         <file>transition-directionalwrap.glsl</file>
         <file>transition-wind.glsl</file>
+        <file>background.glsl</file>
     </gresource>
 </gresources>
