@@ -4,6 +4,7 @@
 
 - [About](#about)
 - [Screenshot](#screenshot)
+- [Animation](#animation)
 
 ## About <a name = "about"></a>
 
@@ -19,5 +20,9 @@ gtk 3.99.1
 ```
 
 ## Screenshot <a name = "screenshot"></a>
+
+Coming soon In shaa Allah.
+
+## Animation <a name = "animation"></a>
 
 Coming soon In shaa Allah.
