@@ -1,7 +1,9 @@
 sources = files (
     'Main.vala',
     'MainWindow.vala',
+    'ShaderBin.vala',
     'ShaderStack.vala',
+    'ShaderPaintable.vala',
 )
 
 sources += project_resources
