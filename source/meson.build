@@ -4,6 +4,8 @@ sources = files (
     'ShaderBin.vala',
     'ShaderStack.vala',
     'ShaderPaintable.vala',
+    'RippleBin.vala',
+    'WindStack.vala',
 )
 
 sources += project_resources
