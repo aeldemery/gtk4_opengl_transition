@@ -10,5 +10,9 @@
         <file>transition-directionalwrap.glsl</file>
         <file>transition-wind.glsl</file>
         <file>background.glsl</file>
+        <file>ripple.glsl</file>
+        <file>cogs2.glsl</file>
+        <file>ducky.png</file>
+        <file>portland-rose.jpg</file>
     </gresource>
 </gresources>
