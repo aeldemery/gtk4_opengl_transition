@@ -14,6 +14,7 @@ dependencies = [
     dependency ('glib-2.0'),
     dependency ('gtk4'),
     cc.find_library ('m', required: false),
+    dependency ('epoxy'),
     #shader_dep,
 ]
 
