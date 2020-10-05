@@ -14,5 +14,7 @@
         <file>cogs2.glsl</file>
         <file>ducky.png</file>
         <file>portland-rose.jpg</file>
+        <file>happyjumping.glsl</file>
+        <file>proteanclouds.glsl</file>
     </gresource>
 </gresources>
