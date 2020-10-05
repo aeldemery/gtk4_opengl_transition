@@ -7,6 +7,10 @@ project (
 cc = meson.get_compiler ('c')
 
 subdir (
+    'source' / 'lib',
+)
+
+subdir (
     'data' / 'resources',
 )
 

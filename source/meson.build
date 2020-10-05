@@ -1,11 +1,8 @@
 sources = files (
     'Main.vala',
     'MainWindow.vala',
-    'ShaderBin.vala',
-    'ShaderStack.vala',
-    'ShaderPaintable.vala',
-    'RippleBin.vala',
-    'WindStack.vala',
+    'widgets' / 'RippleBin.vala',
+    'widgets' / 'WindStack.vala',
 )
 
 sources += project_resources
@@ -15,6 +12,7 @@ dependencies = [
     dependency ('glib-2.0'),
     dependency ('gtk4'),
     cc.find_library ('m', required: false),
+    shader_dep,
 ]
 
 executable (
