@@ -25,11 +25,11 @@ public class Gtk4Demo.MainWindow : Gtk.ApplicationWindow {
 
         //fixed.put (ripple, 40, 40);
 
-        var wind = new WindStack ();
+        var wind = new TransitionStack ();
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 10);
         var next = new Gtk.Button.with_label ("Next");
         next.clicked.connect (() => {
-            wind.transite_forward ();
+            wind.transit_forward ();
         });
         box.append (wind);
         box.append (next);
