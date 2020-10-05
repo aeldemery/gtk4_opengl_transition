@@ -26,6 +26,19 @@ public class Gtk4Demo.ShaderStack : Gtk.Widget {
 
         shader = new Gsk.GLShader.from_bytes (resource);
     }
+
+    public void change_transit_shader (string shader_resource) {
+        GLib.Bytes resource;
+
+        try {
+            resource = GLib.resources_lookup_data (shader_resource, GLib.ResourceLookupFlags.NONE);
+        } catch (Error err) {
+            error ("Couldn't Load Resource: %s\n", err.message);
+        }
+
+        shader = new Gsk.GLShader.from_bytes (resource);
+    }
+
     public void add_child_widget (Gtk.Widget child) {
         children.add (child);
         child.set_parent (this);
@@ -44,7 +57,7 @@ public class Gtk4Demo.ShaderStack : Gtk.Widget {
         this.update_visible_child ();
     }
 
-    public void transite_forward () {
+    public void transit_forward () {
         backwards = false;
         this.stop_transition ();
         this.next = (this.current + 1) % this.children.length;
@@ -52,7 +65,7 @@ public class Gtk4Demo.ShaderStack : Gtk.Widget {
         this.start_transition ();
     }
 
-    public void transite_backward () {
+    public void transit_backward () {
         backwards = true;
         this.stop_transition ();
         this.next = (this.current + this.children.length - 1) % this.children.length;
@@ -62,8 +75,8 @@ public class Gtk4Demo.ShaderStack : Gtk.Widget {
 
     protected override void dispose () {
         stop_transition ();
-        for (int i = 0; i < children.length; i ++) {
-            children[i].unparent();
+        for (int i = 0; i < children.length; i++) {
+            children[i].unparent ();
         }
         base.dispose ();
     }
