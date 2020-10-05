@@ -2,7 +2,7 @@ sources = files (
     'Main.vala',
     'MainWindow.vala',
     'widgets' / 'RippleBin.vala',
-    'widgets' / 'WindStack.vala',
+    'widgets' / 'TransitionStack.vala',
 )
 
 sources += project_resources
