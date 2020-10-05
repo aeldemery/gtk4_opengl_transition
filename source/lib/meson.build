@@ -2,6 +2,7 @@ lib_sources = files (
     'ShaderBin.vala',
     'ShaderPaintable.vala',
     'ShaderStack.vala',
+    'ShaderToy.vala',
 )
 
 # lib_inc = include_directories ('.')
