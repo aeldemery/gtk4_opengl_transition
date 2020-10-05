@@ -2,7 +2,6 @@ lib_sources = files (
     'ShaderBin.vala',
     'ShaderPaintable.vala',
     'ShaderStack.vala',
-    'shaderlibrary.vala',
 )
 
 lib_inc = include_directories ('.')
@@ -17,7 +16,6 @@ shader_lib = library (
     'shaderlibrary',
     vala_header: 'shaderlibrary.h',
     vala_vapi: 'shaderlibrary-1.0.vapi',
-    include_directories: lib_inc,
     sources: lib_sources,
     dependencies: lib_dependencies,
     install: true,
