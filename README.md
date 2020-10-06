@@ -25,4 +25,4 @@ Coming soon In shaa Allah.
 
 ## Animation <a name = "animation"></a>
 
-![Animation](https://github.com/aeldemery/gtk4_opengl_transition/blob/master/Peek%201.gif)
+![Animation](https://github.com/aeldemery/gtk4_opengl_transition/blob/master/Peek1.gif)
