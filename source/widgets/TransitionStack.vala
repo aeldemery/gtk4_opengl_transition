@@ -10,11 +10,17 @@ public class Gtk4Demo.TransitionStack : ShaderStack {
         pic.can_shrink = true;
         this.add_child_widget (pic);
 
-        var rose = new Gtk.Picture.for_resource ("/github/aeldemery/gtk4_opengl_transition/portland-rose.jpg");
-        this.add_child_widget (rose);
+        pic = new Gtk.Picture.for_resource ("/github/aeldemery/gtk4_opengl_transition/portland-rose.jpg");
+        this.add_child_widget (pic);
 
         var shadertoy = new ShaderToy ("/github/aeldemery/gtk4_opengl_transition/happyjumping.glsl");
         this.add_child_widget (shadertoy);
+        
+        shadertoy = new ShaderToy ("/github/aeldemery/gtk4_opengl_transition/proteanclouds.glsl");
+        this.add_child_widget (shadertoy);
+
+        pic = new Gtk.Picture.for_resource ("/github/aeldemery/gtk4_opengl_transition/ducky.png");
+        this.add_child_widget (pic);
     }
 
     bool update_paintable (Gtk.Widget widget, Gdk.FrameClock clock) {
