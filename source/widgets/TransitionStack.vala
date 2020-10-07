@@ -15,12 +15,27 @@ public class Gtk4Demo.TransitionStack : ShaderStack {
 
         var shadertoy = new ShaderToy ("/github/aeldemery/gtk4_opengl_transition/happyjumping.glsl");
         this.add_child_widget (shadertoy);
-        
+
         shadertoy = new ShaderToy ("/github/aeldemery/gtk4_opengl_transition/proteanclouds.glsl");
         this.add_child_widget (shadertoy);
 
         pic = new Gtk.Picture.for_resource ("/github/aeldemery/gtk4_opengl_transition/ducky.png");
         this.add_child_widget (pic);
+
+        var sw = new Gtk.ScrolledWindow ();
+        with (sw) {
+            has_frame = true;
+            hexpand = true;
+            vexpand = true;
+        }
+
+        var textview = new Gtk.TextView ();
+        with (textview) {
+            left_margin = right_margin = top_margin = bottom_margin = 4;
+            buffer.text = shadertoy.image_shader;
+        }
+        sw.set_child (textview);
+        this.add_child_widget (sw);
     }
 
     bool update_paintable (Gtk.Widget widget, Gdk.FrameClock clock) {
