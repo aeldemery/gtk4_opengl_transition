@@ -7,20 +7,24 @@ public class Gtk4Demo.MainWindow : Gtk.ApplicationWindow {
 
     Gtk.Button next;
     Gtk.Button previous;
-    Gtk.CenterBox center;
-    Gtk.Label label;
 
     Gtk.HeaderBar header;
     Gtk.Scale duration_scale;
-    Gtk.Adjustment duration;
+    Gtk.Adjustment duration_adjustment;
     Gtk.DropDown transitions;
-    Gtk.Expression expression;
 
-    GLib.HashTable<string, string> transitions_resources;
+    Gtk.Grid background_grid;
+    Gsk.GLShader background_shader;
+    ShaderPaintable background_paintable;
+    Gtk.Picture background_pic;
+
+    GLib.HashTable<uint, string> transitions_resources;
     Gtk.StringList transition_list;
     string[] trans_names = {
         "Wind",
-        "Directional Wrap",
+        "Wrap",
+        "Radial",
+        "Kaleidoscope",
     };
 
     public MainWindow (Gtk.Application app) {
@@ -33,41 +37,35 @@ public class Gtk4Demo.MainWindow : Gtk.ApplicationWindow {
         header = new Gtk.HeaderBar ();
         header.show_title_buttons = true;
 
-        duration = new Gtk.Adjustment (0.2, 0, 100, 0.1, 0.5, 1);
-        duration_scale = new Gtk.Scale (Gtk.Orientation.HORIZONTAL, duration);
+        duration_adjustment = new Gtk.Adjustment (0.2, 0, 2, 0.1, 0.5, 1);
+        duration_scale = new Gtk.Scale (Gtk.Orientation.HORIZONTAL, duration_adjustment);
         duration_scale.set_size_request (100, -1);
 
         header.pack_end (duration_scale);
 
-        transitions_resources = new GLib.HashTable<string, string>(str_hash, str_equal);
-        transitions_resources.insert ("Transition Wind", "/github/aeldemery/gtk4_opengl_transition/transition-wind.glsl");
+        transitions_resources = new GLib.HashTable<uint, string>(null, null);
+        transitions_resources.insert (0, "/github/aeldemery/gtk4_opengl_transition/transition-wind.glsl");
+        transitions_resources.insert (1, "/github/aeldemery/gtk4_opengl_transition/transition-directionalwrap.glsl");
+        transitions_resources.insert (2, "/github/aeldemery/gtk4_opengl_transition/transition-radial.glsl");
+        transitions_resources.insert (3, "/github/aeldemery/gtk4_opengl_transition/transition-kaleidoscope.glsl");
 
         transition_list = new Gtk.StringList (trans_names);
 
-        expression = new Gtk.CClosureExpression (typeof (string), null, null, (Callback)set_transition_shader, null, null);
-        transitions = new Gtk.DropDown (transition_list, expression);
+        transitions = new Gtk.DropDown (transition_list, null);
+        transitions.notify["selected"].connect (transitions_changed_cb);
 
         header.pack_start (transitions);
 
         this.set_titlebar (header);
 
-        box = new Gtk.Box (Gtk.Orientation.VERTICAL, 10);
+        box = new Gtk.Box (Gtk.Orientation.VERTICAL, 40);
         box.halign = box.valign = Gtk.Align.CENTER;
-        box.margin_top = box.margin_bottom = box.margin_start = box.margin_end = 20;
-        hbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 10);
+        box.margin_top = box.margin_bottom = box.margin_start = box.margin_end = 60;
+        hbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 40);
         hbox.halign = hbox.valign = Gtk.Align.CENTER;
 
-        center = new Gtk.CenterBox ();
-        label = new Gtk.Label ("");
-
-        center.set_center_widget (label);
-
-        box.append (center);
-
-        // transitions.bind_property ("selected-item", label, "label");
-
         stack = new TransitionStack ();
-        duration.bind_property ("value", stack, "duration");
+        duration_scale.adjustment.bind_property ("value", stack, "duration");
 
         previous = new Gtk.Button.from_icon_name ("go-previous-symbolic");
         previous.clicked.connect (() => {
@@ -88,11 +86,30 @@ public class Gtk4Demo.MainWindow : Gtk.ApplicationWindow {
         box.append (bin);
         box.append (hbox);
 
+        background_shader = new Gsk.GLShader.from_resource ("/github/aeldemery/gtk4_opengl_transition/background.glsl");
+        background_paintable = new ShaderPaintable (background_shader);
+        background_pic = new Gtk.Picture.for_paintable (background_paintable);
+        background_pic.vexpand = background_pic.hexpand = true;
+        background_pic.add_tick_callback (background_cb);
+        background_grid = new Gtk.Grid ();
+        background_grid.attach (background_pic, 0, 0);
+
+        background_grid.attach (box, 0,0);
+
         // outer_grid.attach (picture, 0, 0);
-        this.set_child (box);
+        this.set_child (background_grid);
     }
 
-    void set_transition_shader (string resource) {
+    void transitions_changed_cb (GLib.Object obj_drop, GLib.ParamSpec pspec) {
+        var drop = (Gtk.DropDown)obj_drop;
+        var resource = transitions_resources.get (drop.selected);
+        stack.change_transition_shader (resource);
+    }
 
+    static bool background_cb (Gtk.Widget widget, Gdk.FrameClock clock) {
+        var pic = (Gtk.Picture)widget;
+        var paintable = (ShaderPaintable)pic.paintable;
+        paintable.update_time (0, clock.get_frame_time ());
+        return Source.CONTINUE;
     }
 }
