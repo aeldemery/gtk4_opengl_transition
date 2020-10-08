@@ -10,7 +10,7 @@ public class Gtk4Demo.ShaderStack : Gtk.Widget {
     bool backwards;
 
     [Description (nick = "Duration", blurb = "Shader Transition Duration.")]
-    public float duration { get; set; default = 1f; }
+    public float duration { get; set; default = 0.2f; }
 
     public ShaderStack (string shader_resource) {
         this.children = new GenericArray<Gtk.Widget>();
