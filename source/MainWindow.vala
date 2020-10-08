@@ -9,11 +9,12 @@ public class Gtk4Demo.MainWindow : Gtk.ApplicationWindow {
     Gtk.Button previous;
     Gtk.CenterBox center;
     Gtk.Label label;
-    
+
     Gtk.HeaderBar header;
     Gtk.Scale duration_scale;
     Gtk.Adjustment duration;
     Gtk.DropDown transitions;
+    Gtk.Expression expression;
 
     GLib.HashTable<string, string> transitions_resources;
     Gtk.StringList transition_list;
@@ -38,19 +39,23 @@ public class Gtk4Demo.MainWindow : Gtk.ApplicationWindow {
 
         header.pack_end (duration_scale);
 
-        transitions_resources = new GLib.HashTable<string,string> (str_hash, str_equal);
+        transitions_resources = new GLib.HashTable<string, string>(str_hash, str_equal);
         transitions_resources.insert ("Transition Wind", "/github/aeldemery/gtk4_opengl_transition/transition-wind.glsl");
 
         transition_list = new Gtk.StringList (trans_names);
 
-        transitions = new Gtk.DropDown (transition_list, null);
+        expression = new Gtk.CClosureExpression (typeof (string), null, null, (Callback)set_transition_shader, null, null);
+        transitions = new Gtk.DropDown (transition_list, expression);
 
         header.pack_start (transitions);
 
         this.set_titlebar (header);
 
         box = new Gtk.Box (Gtk.Orientation.VERTICAL, 10);
+        box.halign = box.valign = Gtk.Align.CENTER;
+        box.margin_top = box.margin_bottom = box.margin_start = box.margin_end = 20;
         hbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 10);
+        hbox.halign = hbox.valign = Gtk.Align.CENTER;
 
         center = new Gtk.CenterBox ();
         label = new Gtk.Label ("");
@@ -59,7 +64,7 @@ public class Gtk4Demo.MainWindow : Gtk.ApplicationWindow {
 
         box.append (center);
 
-        //transitions.bind_property ("selected-item", label, "label");
+        // transitions.bind_property ("selected-item", label, "label");
 
         stack = new TransitionStack ();
         duration.bind_property ("value", stack, "duration");
@@ -85,5 +90,9 @@ public class Gtk4Demo.MainWindow : Gtk.ApplicationWindow {
 
         // outer_grid.attach (picture, 0, 0);
         this.set_child (box);
+    }
+
+    void set_transition_shader (string resource) {
+
     }
 }

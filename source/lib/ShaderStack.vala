@@ -15,6 +15,7 @@ public class Gtk4Demo.ShaderStack : Gtk.Widget {
     public ShaderStack (string shader_resource) {
         this.children = new GenericArray<Gtk.Widget>();
         this.current = this.next = -1;
+        this.backwards = false;
 
         GLib.Bytes resource;
 
@@ -130,7 +131,7 @@ public class Gtk4Demo.ShaderStack : Gtk.Widget {
             var progress = this.time / this.duration;
             var next_widget = children[this.next];
 
-            if (this.backwards = true) {
+            if (this.backwards) {
                 var tmp = next_widget;
                 next_widget = current_widget;
                 current_widget = tmp;
