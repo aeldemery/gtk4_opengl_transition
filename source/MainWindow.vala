@@ -7,6 +7,7 @@ public class Gtk4Demo.MainWindow : Gtk.ApplicationWindow {
 
     Gtk.Button next;
     Gtk.Button previous;
+    Gtk.Label label;
 
     Gtk.HeaderBar header;
     Gtk.Scale duration_scale;
@@ -37,11 +38,15 @@ public class Gtk4Demo.MainWindow : Gtk.ApplicationWindow {
         header = new Gtk.HeaderBar ();
         header.show_title_buttons = true;
 
-        duration_adjustment = new Gtk.Adjustment (0.2, 0, 2, 0.1, 0.5, 1);
+        label = new Gtk.Label ("Duration :");
+
+        duration_adjustment = new Gtk.Adjustment (0.2, 0.1, 10, 0.1, 0.5, 1);
         duration_scale = new Gtk.Scale (Gtk.Orientation.HORIZONTAL, duration_adjustment);
+
         duration_scale.set_size_request (100, -1);
 
         header.pack_end (duration_scale);
+        header.pack_end (label);
 
         transitions_resources = new GLib.HashTable<uint, string>(null, null);
         transitions_resources.insert (0, "/github/aeldemery/gtk4_opengl_transition/transition-wind.glsl");
@@ -54,6 +59,8 @@ public class Gtk4Demo.MainWindow : Gtk.ApplicationWindow {
         transitions = new Gtk.DropDown (transition_list, null);
         transitions.notify["selected"].connect (transitions_changed_cb);
 
+        label = new Gtk.Label ("Shaders :");
+        header.pack_start (label);
         header.pack_start (transitions);
 
         this.set_titlebar (header);
@@ -94,7 +101,7 @@ public class Gtk4Demo.MainWindow : Gtk.ApplicationWindow {
         background_grid = new Gtk.Grid ();
         background_grid.attach (background_pic, 0, 0);
 
-        background_grid.attach (box, 0,0);
+        background_grid.attach (box, 0, 0);
 
         // outer_grid.attach (picture, 0, 0);
         this.set_child (background_grid);
@@ -108,7 +115,7 @@ public class Gtk4Demo.MainWindow : Gtk.ApplicationWindow {
 
     static bool background_cb (Gtk.Widget widget, Gdk.FrameClock clock) {
         var pic = (Gtk.Picture)widget;
-        var paintable = (ShaderPaintable)pic.paintable;
+        var paintable = (ShaderPaintable) pic.paintable;
         paintable.update_time (0, clock.get_frame_time ());
         return Source.CONTINUE;
     }
