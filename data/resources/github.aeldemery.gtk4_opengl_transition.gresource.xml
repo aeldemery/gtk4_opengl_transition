@@ -11,6 +11,7 @@
         <file>transition-wind.glsl</file>
         <file>transition-kaleidoscope.glsl</file>
         <file>transition-radial.glsl</file>
+        <file>transition-linearblur.glsl</file>
         <file>background.glsl</file>
         <file>ripple.glsl</file>
         <file>cogs2.glsl</file>

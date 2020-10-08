@@ -26,6 +26,7 @@ public class Gtk4Demo.MainWindow : Gtk.ApplicationWindow {
         "Wrap",
         "Radial",
         "Kaleidoscope",
+        "LinearBlur",
     };
 
     public MainWindow (Gtk.Application app) {
@@ -53,6 +54,7 @@ public class Gtk4Demo.MainWindow : Gtk.ApplicationWindow {
         transitions_resources.insert (1, "/github/aeldemery/gtk4_opengl_transition/transition-directionalwrap.glsl");
         transitions_resources.insert (2, "/github/aeldemery/gtk4_opengl_transition/transition-radial.glsl");
         transitions_resources.insert (3, "/github/aeldemery/gtk4_opengl_transition/transition-kaleidoscope.glsl");
+        transitions_resources.insert (4, "/github/aeldemery/gtk4_opengl_transition/transition-linearblur.glsl");
 
         transition_list = new Gtk.StringList (trans_names);
 
