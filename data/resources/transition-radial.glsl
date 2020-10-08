@@ -10,14 +10,21 @@ vec4 getToColor (vec2 uv) {
   return GskTexture(u_texture2, uv);
 }
 
-// Source: https://gl-transitions.com/editor/crosswarp
-// Author: Eke Péter <peterekepeter@gmail.com>
+// Source: https://gl-transitions.com/editor/Radial
 // License: MIT
+// Author: Xaychru
+
+const float smoothness = 1.0;
+
+const float PI = 3.141592653589;
 
 vec4 transition(vec2 p) {
-  float x = progress;
-  x=smoothstep(.0,1.0,(x*2.0+p.x-1.0));
-  return mix(getFromColor((p-.5)*(1.-x)+.5), getToColor((p-.5)*x+.5), x);
+  vec2 rp = p*2.-1.;
+  return mix(
+    getToColor(p),
+    getFromColor(p),
+    smoothstep(0., smoothness, atan(rp.y,rp.x) - (progress-.5) * PI * 2.5)
+  );
 }
 
 
