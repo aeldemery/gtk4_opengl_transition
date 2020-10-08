@@ -28,7 +28,7 @@ public class Gtk4Demo.ShaderStack : Gtk.Widget {
         shader = new Gsk.GLShader.from_bytes (resource);
     }
 
-    public void change_transit_shader (string shader_resource) {
+    public void change_transition_shader (string shader_resource) {
         GLib.Bytes resource;
 
         try {
@@ -43,7 +43,6 @@ public class Gtk4Demo.ShaderStack : Gtk.Widget {
     public void add_child_widget (Gtk.Widget child) {
         children.add (child);
         child.set_parent (this);
-
         this.queue_resize ();
         if (this.current == -1) {
             this.current = 0;
@@ -95,7 +94,7 @@ public class Gtk4Demo.ShaderStack : Gtk.Widget {
         natural_baseline = -1;
         for (int i = 0; i < children.length; i++) {
             int child_min, child_nat;
-            if (children[i].visible = true) {
+            if (children[i].visible = true) { //BUG: should be == true! but otherwise don't work!
                 children[i].measure (orientation, for_size, out child_min, out child_nat, null, null);
                 minimum = int.max (minimum, child_min);
                 natural = int.max (natural, child_nat);
@@ -111,7 +110,7 @@ public class Gtk4Demo.ShaderStack : Gtk.Widget {
         child_allocation.height = height;
 
         for (int i = 0; i < children.length; i++) {
-            if (children[i].visible == true) {
+            if (children[i].visible) {
                 children[i].allocate_size (child_allocation, -1);
             }
         }
@@ -161,7 +160,7 @@ public class Gtk4Demo.ShaderStack : Gtk.Widget {
 
     void update_visible_child () {
         for (int i = 0; i < children.length; i++) {
-            children[i].set_visible (i == this.current || i == this.next);
+            children[i].set_visible ((i == this.current) || (i == this.next));
         }
     }
 
