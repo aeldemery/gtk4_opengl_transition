@@ -15,14 +15,6 @@ add_project_arguments([
 
 cc = meson.get_compiler ('c')
 
-subdir (
-    'source' / 'lib',
-)
-
-subdir (
-    'data' / 'resources',
-)
-
-subdir (
-    'source',
-)
+subdir ('source' / 'lib',)
+subdir ('data' / 'resources',)
+subdir ('source',)
